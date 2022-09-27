@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import Door from './components/Door.js';
+import carPic from './images/car.jpg';
+import goatPic from './images/goat.jpg';
+import Doors from './components/Doors.js';
+import './styles/style.scss';
+
+const door1 = new Door(1, carPic, "winning");
+const door2 = new Door(2, goatPic, "loosing");
+const door3 = new Door(3, goatPic, "loosing");
+
+const doors = [door1, door2, door3];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Doors doors={doors}/>
     </div>
   );
 }

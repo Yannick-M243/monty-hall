@@ -1,10 +1,13 @@
-import React from 'react';
+//creating door class that will be used to create differents doors
+class Door {
+    doorNum;
+    image;
+    result;
 
-class Door extends React.Component {
-
-    constructor() {
-        super();
-        
+    constructor(doorNum,image,result) {
+        this.doorNum = doorNum;
+        this.image = image;
+        this.result = result;
     }
 }
 
