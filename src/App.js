@@ -14,7 +14,7 @@ const doors = [door1, door2, door3];
 function App() {
   return (
     <div className="App">
-        <Doors doors={doors}/>
+        <Doors doorsList={doors}/>
     </div>
   );
 }

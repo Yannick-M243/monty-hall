@@ -1,39 +1,42 @@
 import React from 'react';
-import Door from './Door.js';
-import carPic from '../images/car.jpg';
-import goatPic from '../images/goat.jpg';
 import DoorsInput from './DoorsInput.js';
-
-
-const door1 = new Door(1, carPic, "winning");
-const door2 = new Door(2, goatPic, "loosing");
-const door3 = new Door(3, goatPic, "loosing");
-
-const doors = [door1, door2, door3];
-
 class Doors extends React.Component {
 
     constructor(props) {
         super(props)
-        //this.handleClick = this.handleClick.bind(this);
-        this.state = { selected: 0, door: [] };
+        this.onCardClicked = this.onCardClicked.bind(this);
+        this.state = { doorNumber: 0};
     }
 
+    onCardClicked(doorNum){
+        this.setState({ doorNumber: doorNum });
+    }
+    
     //returning the array of product renderings
     render() {
-        const arr = this.props.doorList;
+        const arr = this.props.doorsList;
+        
         return (
             <div className='door-section'>
                 <h3>Doors</h3>
                 <div className='door-container'>
-                    <DoorsInput doorList={arr[0]}
-                        selected={this.state.selected === 1}
+                    <DoorsInput 
+                        door={arr[0]}
+                        selected={this.state.doorNumber === 1}
+                        doornumber={this.state.doorNumber}
+                        onCardClicked={() => this.onCardClicked(arr[0].doorNum)}
                     />
-                    <DoorsInput doorList={arr[1]}
-                        selected={this.state.selected === 2}
+                    <DoorsInput 
+                        door={arr[1]}
+                        selected={this.state.doorNumber === 2}
+                        doornumber={this.state.doorNumber}
+                        onCardClicked={() => this.onCardClicked(arr[1].doorNum)}
                     />
-                    <DoorsInput doorList={arr[2]}
-                        selected={this.state.selected === 3}
+                    <DoorsInput 
+                        door={arr[2]}
+                        selected={this.state.doorNumber === 3}
+                        doornumber={this.state.doorNumber}
+                        onCardClicked={() => this.onCardClicked(arr[2].doorNum)}
                     />
                 </div>
             </div>

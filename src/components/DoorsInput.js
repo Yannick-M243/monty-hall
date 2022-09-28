@@ -1,46 +1,35 @@
 import React from 'react';
 import doorPic from '../images/door.png';
-import Door from './Door.js';
-import carPic from '../images/car.jpg';
-import goatPic from '../images/goat.jpg';
-
-
-const door1 = new Door(1, carPic, "winning");
-const door2 = new Door(2, goatPic, "loosing");
-const door3 = new Door(3, goatPic, "loosing");
-const doors = [door1, door2, door3];
 class DoorsInput extends React.Component {
 
     constructor(props) {
         super(props)
-        this.handleClick = this.handleClick.bind(this);
-        this.state = { selected: 0, door: {} };
+        this.handleCardSelection = this.handleCardSelection.bind(this);
+        this.state = { doorNumber: 0 };
     }
-
-    handleClick(doorNumber, doorSelected) {
-        this.setState({ selected: doorNumber, door: doorSelected })
-        console.log(this.state.selected)
-        console.log(this.state.door)
+    
+    handleCardSelection = e => {
+        this.props.onCardClicked(e.target.doornumber)
     }
 
     render() {
-        const door = this.state.door;
-        const selected = this.state.selected;
-
-        if (door.doorNum !== selected) {
+        const door = this.props.door;
+        const selected = this.props.selected;
+        
+        if (selected === false) {
             return (
                 <div className='door'>
-                    <img src={doorPic} onClick={() => this.handleClick(selected, door)} doorList={doors} />
+                    <img src={doorPic} onClick={(e) => this.handleCardSelection(e)} doornumber={this.props.doornumber} />
                 </div>
             );
         } else {
             return (
                 <div className='door'>
-                    <img src={door.image} onClick={() => this.handleClick(selected, door)} doorList={doors} />
+                    <img src={door.image} onClick={(e) => this.handleCardSelection(e)} doornumber={this.props.doornumber} />
                 </div>
             );
         }
-
+        
     }
 }
 export default DoorsInput;
