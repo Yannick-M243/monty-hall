@@ -1,3 +1,4 @@
+//This is a method that shuffles a given array
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 

@@ -1,17 +1,26 @@
 import React from 'react';
 import DoorsInput from './DoorsInput.js';
 import Result from './Result.js';
+import shuffle from './shuffle.js';
 
 class Doors extends React.Component {
 
     constructor(props) {
         super(props)
         this.onCardClicked = this.onCardClicked.bind(this);
-        this.state = { doorNumber: 0, step: 0, doorSelected: 0, openFirst: 0, openSecond: 0, result: "" };
+        this.reset = this.reset.bind(this);
+        this.state = {
+            step: 0,
+            doorSelected: 0,
+            openFirst: 0,
+            result: "",
+            doors: this.props.doorsList
+        };
     }
 
-    onCardClicked = (doorNum, currentStep, arr) => {
-
+    //this is the function called when the user clicks on any card
+    onCardClicked = (doorNum, currentStep) => {
+        const arr = this.state.doors;
         //if the it is the step 0 get the door selected firs by the user
         if (this.state.step === 0) {
 
@@ -28,71 +37,74 @@ class Doors extends React.Component {
                     }
                 }
             }
-
             //going to the next step
             this.setState({ step: currentStep + 1 })
         }
 
         if (this.state.step === 1 && this.state.openFirst !== doorNum) {
-            if (this.state.openSecond === 0) {
-                //enabling selected door to be changed
-                this.setState({ doorSelected: 0 });
-                this.setState({ openSecond: doorNum });
+            //enabling selected door to be clicked
+            this.setState({ doorSelected: 0 });
 
-                for (let i = 0; i < arr.length; i++) {
-                    //the condition below select the first non-selected closed loosing door and onpen it
-                    if (arr[i].doorNum === doorNum && arr[i].result === "winning") {
-                        this.setState({ result: "winning" });
-                    } else {
-                        this.setState({ result: "loosing" });
-                    }
+            for (let i = 0; i < arr.length; i++) {
+                //the condition below select the first non-selected closed loosing door and onpen it
+                if (arr[i].doorNum === doorNum && arr[i].result === "winning") {
+                    this.setState({ result: "winning" });
+                    break;
+                } else {
+                    this.setState({ result: "loosing" });
                 }
-
-                //going to the next step
-                this.setState({ step: currentStep + 1 })
             }
+            //going to the next step
+            this.setState({ step: currentStep + 1 });
         }
-        this.setState({ doorNumber: doorNum });
-
     }
 
+    //this is a function that resets all the states when the reset button is clicked
+    reset = () => {
+        this.setState({
+            step: 0,
+            doorSelected: 0,
+            openFirst: 0,
+            result: "",
+            doors: shuffle(this.props.doorsList)
+        })
+    }
     //returning the array of product renderings
     render() {
-        const arr = this.props.doorsList;
-        const door1 = arr[0];
-        const door2 = arr[1];
-        const door3 = arr[2];
+        //getting the array of doors from props
+        const arr = this.state.doors;
+        const doorNumber1 = arr[0].doorNum;
+        const doorNumber2 = arr[1].doorNum;
+        const doorNumber3 = arr[2].doorNum;
         return (
             <div className='door-section'>
-                <h2>Doors</h2>
+                {this.state.step === 0 ? <h2>Choose one of the three doors</h2> : ''}
+                {this.state.step === 1 ? <h2>You can choose between you initialy selected door and the other closed door</h2> : ''}
                 <div className='door-container'>
                     <DoorsInput
                         door={arr[0]}
                         step={this.state.step}
-                        selected={this.state.doorSelected === door1.doorNum}
-                        openFirst={this.state.openFirst === door1.doorNum}
-                        openSecond={this.state.openSecond === door1.doorNum}
-                        onCardClicked={() => this.onCardClicked(door1.doorNum, this.state.step, arr)}
+                        selected={this.state.doorSelected === doorNumber1}
+                        openFirst={this.state.openFirst === doorNumber1}
+                        onCardClicked={() => this.onCardClicked(doorNumber1, this.state.step)}
                     />
                     <DoorsInput
                         door={arr[1]}
                         step={this.state.step}
-                        selected={this.state.doorSelected === door2.doorNum}
-                        openFirst={this.state.openFirst === door2.doorNum}
-                        openSecond={this.state.openSecond === door2.doorNum}
-                        onCardClicked={() => this.onCardClicked(door2.doorNum, this.state.step, arr)}
+                        selected={this.state.doorSelected === doorNumber2}
+                        openFirst={this.state.openFirst === doorNumber2}
+                        onCardClicked={() => this.onCardClicked(doorNumber2, this.state.step)}
                     />
                     <DoorsInput
                         door={arr[2]}
                         step={this.state.step}
-                        selected={this.state.doorSelected === door3.doorNum}
-                        openFirst={this.state.openFirst === door3.doorNum}
-                        openSecond={this.state.openSecond === door3.doorNum}
-                        onCardClicked={() => this.onCardClicked(door3.doorNum, this.state.step, arr)}
+                        selected={this.state.doorSelected === doorNumber3}
+                        openFirst={this.state.openFirst === doorNumber3}
+                        onCardClicked={() => this.onCardClicked(doorNumber3, this.state.step)}
                     />
-
-                    <Result result={this.state.result} />
                 </div>
+                <Result result={this.state.result} />
+                <button onClick={this.reset}>Reset</button>
             </div>
         );
     }

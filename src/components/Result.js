@@ -1,8 +1,9 @@
+//This is a component that displays the result
 function Result(props) {
     if (props.result === "winning") {
-        return <p>You've Won.</p>;
+        return <h2 className="result">You've Won.</h2>;
     } else if (props.result === "loosing") {
-        return <p>You've lost.</p>;
+        return <h2 className="result">You've lost.</h2>;
     }
     return "";
 }
