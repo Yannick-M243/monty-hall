@@ -21,7 +21,9 @@ function App() {
     <div className="App">
       <h1>Monty Hall Problem</h1>
       <Doors doorsList={doors} />
-      <span className='footer'>Created by <ExternalLink href="https://github.com/Yannick-M243" target='blank'>Yannick Makwenge</ExternalLink></span>
+      <div className='footer'>
+        <span >Created by <ExternalLink href="https://github.com/Yannick-M243" target='blank'>Yannick Makwenge</ExternalLink></span>
+      </div>
     </div>
   );
 }

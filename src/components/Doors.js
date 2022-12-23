@@ -79,7 +79,7 @@ class Doors extends React.Component {
         return (
             <div className='door-section'>
                 {this.state.step === 0 ? <h2>Choose one of the three doors</h2> : ''}
-                {this.state.step === 1 ? <h2>You can choose between you initialy selected door and the other closed door</h2> : ''}
+                {this.state.step === 1 ? <h2>You can choose between your initialy selected door and the other closed door</h2> : ''}
                 <div className='door-container'>
                     <DoorsInput
                         door={arr[0]}
