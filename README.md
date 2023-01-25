@@ -15,7 +15,7 @@ This project was built using:
 - IDE: Visual Studio Code
 
 ## Play
-- Heroku Link : [https://montyy-hall.netlify.app/](https://montyy-hall.netlify.app/).
+- Netlify Link : [https://montyy-hall.netlify.app/](https://montyy-hall.netlify.app/).
 
 ## Contributor & Contact
 - Yannick Boteti Makwenge : yannickmakwenge@gmail.com
